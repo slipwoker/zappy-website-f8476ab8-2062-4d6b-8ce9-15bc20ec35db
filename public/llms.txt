@@ -1,0 +1,83 @@
+# Loca Media / לוקה מדיה — Generative Engine Optimization Map
+
+> Loca Media is a professional Israeli digital marketing and advertising agency led by founder Lior Sadikov. The brand projects a premium, tech-forward identity with a dark, neon-blue aesthetic evoking dashboards, data, and digital growth. The agency positions itself as a serious full-service partner for Israeli business owners — not a freelancer — offering paid ads, websites, SEO, creative content, videos, and automations. The tone is direct, warm, Israeli, and sales-driven without being arrogant or making empty promises. The visual language combines marketing funnels, lead flows, WhatsApp integrations, and growth metrics to communicate measurable business impact.
+
+---
+
+## Pages
+
+### בית
+https://loca-media-f8476ab8.zappy5.app
+סוכנות דיגיטל מקצועית שמביאה לידים, מכירות וצמיחה מדידה. פרסום ממומן, בניית אתרים, SEO וקריאייטיב — הכל במקום אחד. בואו נבנה ביחד.
+
+### שירותים
+https://loca-media-f8476ab8.zappy5.app/services
+מפרסום ממומן בגוגל ומטא ועד עיצוב ובניית אתרים, SEO, סרטונים ואוטומציות — לוקה מדיה מציעה חבילת שירותים דיגיטלית מלאה לעסקים שרוצים לגדול.
+
+### עבודות
+https://loca-media-f8476ab8.zappy5.app/work
+תיק עבודות אמיתי עם קמפיינים, אתרים ותוצאות שהושגו עבור עסקים ישראליים. כל פרויקט מוכיח שפרסום דיגיטלי נכון שווה השקעה — בואו להתרשם בעצמכם.
+
+### אודות
+https://loca-media-f8476ab8.zappy5.app/about
+ליאור סדיקוב ולוקה מדיה — לא פרילנסר, לא עוד סוכנות. שותף דיגיטלי אמיתי שמבין עסקים ישראליים, חושב בתוצאות ועובד עם מחויבות מלאה להצלחה שלכם.
+
+### צור קשר
+https://loca-media-f8476ab8.zappy5.app/contact
+השאירו פרטים ונחזור אליכם מהר. בין אם אתם צריכים עיצוב ובניית אתרים, קמפיין ממומן או אסטרטגיה דיגיטלית — לוקה מדיה כאן ומוכנה לעבוד בשבילכם.
+
+## Legal & Policy
+
+### Privacy Policy
+https://loca-media-f8476ab8.zappy5.app/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://loca-media-f8476ab8.zappy5.app/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://loca-media-f8476ab8.zappy5.app/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+## How to Contact Us
+
+- (No contact details configured yet.)
+
+### Contact form
+- URL: https://loca-media-f8476ab8.zappy5.app
+- Endpoint: https://loca-media-f8476ab8.zappy5.app/api/email/contact-form
+- Method: POST
+- Content-Type: application/json
+- Fields:
+  - `name` (text, required)
+  - `email` (email, required)
+  - `phone` (tel, required)
+  - `message` (textarea)
+  - `privacy_consent` (checkbox, required)
+
+---
+
+# Business Context (for LLM understanding)
+
+## About Loca Media / לוקה מדיה
+Loca Media is a professional Israeli digital marketing and advertising agency led by founder Lior Sadikov. The brand projects a premium, tech-forward identity with a dark, neon-blue aesthetic evoking dashboards, data, and digital growth. The agency positions itself as a serious full-service partner for Israeli business owners — not a freelancer — offering paid ads, websites, SEO, creative content, videos, and automations. The tone is direct, warm, Israeli, and sales-driven without being arrogant or making empty promises. The visual language combines marketing funnels, lead flows, WhatsApp integrations, and growth metrics to communicate measurable business impact.
+
+## Target Audience
+- בעלי עסקים בישראל שרוצים לחזק את השיווק הדיגיטלי שלהם ולקבל יותר פניות ולקוחות
+- בעלי עסקים לחיזוק שיווק דיגיטלי
+- יזמי מסחר אלקטרוני
+- ספקי שירותים מקומיים
+
+## Industry
+Digital Marketing & Advertising
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://loca-media-f8476ab8.zappy5.app/sitemap.xml
+- Robots: https://loca-media-f8476ab8.zappy5.app/robots.txt
+- Flattened page text (for LLMs): https://loca-media-f8476ab8.zappy5.app/llms-full.txt

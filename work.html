@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>תוצאות שמדברות בעד עצמן — ראו את הפרויקטים — Loca Media / לוקה מדיה</title>
+    <meta name="description" content="תיק עבודות אמיתי עם קמפיינים, אתרים ותוצאות שהושגו עבור עסקים ישראליים. כל פרויקט מוכיח שפרסום דיגיטלי נכון שווה השקעה — בואו להתרשם בעצמכם.">
+    <meta name="keywords" content="תיק עבודות דיגיטל, קמפיינים מוצלחים, digital advertising, דוגמאות בניית אתרים, הצלחות שיווק ממומן">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: 'f8476ab8-2062-4d6b-8ce9-15bc20ec35db',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="תוצאות שמדברות בעד עצמן — ראו את הפרויקטים — Loca Media / לוקה מדיה">
+    <meta property="og:description" content="תיק עבודות אמיתי עם קמפיינים, אתרים ותוצאות שהושגו עבור עסקים ישראליים. כל פרויקט מוכיח שפרסום דיגיטלי נכון שווה השקעה — בואו להתרשם בעצמכם.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="תוצאות שמדברות בעד עצמן — ראו את הפרויקטים — Loca Media / לוקה מדיה">
+    <meta name="twitter:description" content="תיק עבודות אמיתי עם קמפיינים, אתרים ותוצאות שהושגו עבור עסקים ישראליים. כל פרויקט מוכיח שפרסום דיגיטלי נכון שווה השקעה — בואו להתרשם בעצמכם.">
+    <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .skip-link { position: absolute; top: 0; left: 0; transform: translateY(-200%); padding: 12px 18px; background: var(--bg-dark, #1a1a1a); color: var(--text-light, #fff); font-weight: 600; border-radius: 0 0 8px 0; z-index: 10000; }
+    .skip-link:focus { transform: none; outline: 2px solid var(--ring, #fff); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--ring, currentColor); outline-offset: 3px; }
+  </style>
+
+
+  
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+      [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 10px !important; padding-right: 28px !important; }
+      .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .navbar .sub-menu.mobile-expanded, .nav-menu .sub-menu.mobile-expanded, #navMenu .sub-menu.mobile-expanded { max-height: none !important; overflow-y: visible !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-light) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-light) !important; white-space: normal !important; }
+        .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+        [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 0 !important; padding-right: 28px !important; }
+        .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+        .nav-menu.active, #navMenu.active { max-width: 100vw !important; overflow-x: hidden !important; box-sizing: border-box !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-light) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
+      html[dir="ltr"] .whatsapp-float, html:not([dir]) .whatsapp-float { left: 20px !important; right: auto !important; }
+      html[dir="rtl"] #mic-access-tool-general-button, html[dir="rtl"] .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="rtl"] ._access-icon { left: 20px !important; right: auto !important; }
+      html[dir="ltr"] #mic-access-tool-general-button, html[dir="ltr"] .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="ltr"] ._access-icon,
+      html:not([dir]) #mic-access-tool-general-button, html:not([dir]) .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool #mic-access-tool-general-button,
+      html:not([dir]) ._access-icon { right: 20px !important; left: auto !important; }
+      @media (max-width: 768px) { .whatsapp-float { display: flex !important; } }
+      @media (min-width: 769px) { .whatsapp-float { display: flex !important; } }
+      @media (max-width: 768px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+      @media (min-width: 769px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">דלג לתוכן הראשי</a>
+  <nav class="navbar" dir="rtl">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <button class="phone-header-btn" data-phone="[business_phone]" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-right-group"><div class="nav-brand">
+      <a href="/" class="logo-link"><img class="logo" src="/assets/site--------image-1.webp" alt="Loca Media / לוקה מדיה"></a>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/">בית</a></li><li><a href="/services">שירותים</a></li><li><a href="/work">עבודות</a></li><li><a href="/about">אודות</a></li></ul></div>
+
+    
+
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">צור קשר</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .navbar,
+          nav.navbar {
+            min-height: 70px !important;
+          }
+
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            margin-top: auto !important;
+            margin-bottom: auto !important;
+            transform: none !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-light)) !important;
+            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: transparent !important;
+          }
+
+          html[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          body[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] header .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] nav .phone-header-btn {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '0', 'important');
+          mobileToggle.style.setProperty('bottom', '0', 'important');
+          mobileToggle.style.setProperty('margin-top', 'auto', 'important');
+          mobileToggle.style.setProperty('margin-bottom', 'auto', 'important');
+          mobileToggle.style.setProperty('transform', 'none', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '0', 'important');
+          phoneBtn.style.setProperty('bottom', '0', 'important');
+          phoneBtn.style.setProperty('margin-top', 'auto', 'important');
+          phoneBtn.style.setProperty('margin-bottom', 'auto', 'important');
+          phoneBtn.style.setProperty('transform', 'none', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu handler (shared by click and touchend)
+    function handleToggle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+      const closeIcon = newToggle.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    }
+    
+    // Use click for desktop/emulation and touchend as iOS Safari fallback.
+    // Prevent double-fire with a timestamp guard.
+    var lastToggleTime = 0;
+    function guardedToggle(e) {
+      var now = Date.now();
+      if (now - lastToggleTime < 300) return;
+      lastToggleTime = now;
+      handleToggle(e);
+    }
+    
+    newToggle.addEventListener('click', guardedToggle);
+    newToggle.addEventListener('touchend', guardedToggle);
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '[business_phone]';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // WhatsApp button visibility is now controlled via CSS (siteSettings).
+    // No JS-based desktop hiding — the button is visible on both mobile and desktop by default.
+  });
+})();
+
+</script>
+  
+  <main id="main">
+    <section class="work-showcase-section" data-layout-spec="עבודות-showcase" dir="rtl">
+
+  <!-- Decorative background dot grid -->
+  <div class="wss-bg-grid" aria-hidden="true"></div>
+  <!-- Decorative radial glow -->
+  <div class="wss-radial-glow" aria-hidden="true"></div>
+
+  <div class="wss-container">
+
+    <!-- ── TOP ROW: Lead copy (right) + Featured case (left) ── -->
+    <div class="wss-top-row">
+
+      <!-- Lead copy block -->
+      <div class="wss-lead">
+        <span class="wss-eyebrow">הפרויקטים שלנו</span>
+        <h2 class="wss-heading">עבודה שמדברת<br><span class="wss-accent-word">בתוצאות</span></h2>
+        <p class="wss-lead-body">כל פרויקט שאנחנו מובילים מתחיל בהבנה עמוקה של העסק — ומסתיים בקמפיינים, אתרים ומשפכי לידים שמניעים פניות אמיתיות. כאן תוכלו לראות דוגמאות מהעבודה שלנו בתחומי פרסום ממומן, עיצוב ובניית אתרים, SEO ואוטומציות שיווקיות.</p>
+        <div class="wss-lead-tags">
+          <span class="wss-tag">פרסום ממומן</span>
+          <span class="wss-tag">בניית אתרים</span>
+          <span class="wss-tag">SEO</span>
+          <span class="wss-tag">אוטומציה</span>
+        </div>
+        <a href="/contact" class="btn-primary wss-cta">
+          <i class="fa-solid fa-arrow-left"></i>
+          דברו איתנו על הפרויקט שלכם
+        </a>
+      </div>
+
+      <!-- Featured case preview -->
+      <article class="wss-featured-card">
+        <div class="wss-featured-img-wrap">
+          <img loading="eager" fetchpriority="high" data-placeholder="work-showcase-image-1" data-context="Premium digital marketing agency campaign dashboard screenshot for an Israeli real-estate brand — dark navy interface with glowing blue metrics, CTR graphs, lead funnel visualization, Hebrew text labels, and neon-blue accent highlights. Realistic mockup style, widescreen 16:9." width="720" height="405" src="/assets/site-work-showcase-image-1.webp" alt="קמפיין נדלן — דשבורד ניהול מודעות ממומנות" class="wss-featured-img">
+          <div class="wss-featured-overlay"></div>
+          <div class="wss-featured-meta">
+            <div class="wss-featured-tags">
+              <span class="wss-tag wss-tag--accent">פרסום ממומן</span>
+              <span class="wss-tag">Meta Ads</span>
+              <span class="wss-tag">Google Ads</span>
+            </div>
+            <div class="wss-featured-stats">
+              <div class="wss-stat">
+                <span class="wss-stat-value">+340%</span>
+                <span class="wss-stat-label">עלייה בפניות</span>
+              </div>
+              <div class="wss-stat-divider"></div>
+              <div class="wss-stat">
+                <span class="wss-stat-value">3.2X</span>
+                <span class="wss-stat-label">ROAS ממוצע</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wss-featured-info">
+          <h3 class="wss-featured-title">קמפיין לידים לענף הנדל"ן</h3>
+          <p class="wss-featured-desc">אסטרטגיית פרסום רב-ערוצית שכללה Meta Ads, Google Search וריטרגטינג — עם משפך ייעודי ואוטומציית WhatsApp לסגירת פניות חמות.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- ── SUPPORTING PROJECTS 2×2 GRID ── -->
+    <div class="wss-grid">
+
+      <!-- Card 1: Website -->
+      <article class="wss-card">
+        <div class="wss-card-img-wrap">
+          <img loading="lazy" decoding="async" data-placeholder="work-showcase-image-2" data-context="Modern Israeli business website design mockup — dark navy background, electric-blue CTA buttons, Hebrew typography, clean landing page layout for a medical clinic with trust badges and contact form. Professional web design screenshot." width="560" height="315" src="/assets/site-work-showcase-image-2.webp" alt="בניית אתר לקליניקה רפואית" class="wss-card-img">
+          <div class="wss-card-overlay"></div>
+          <div class="wss-card-tags">
+            <span class="wss-tag wss-tag--sm">עיצוב ובניית אתרים</span>
+          </div>
+        </div>
+        <div class="wss-card-body">
+          <h3 class="wss-card-title">אתר תדמית לקליניקה רפואית</h3>
+          <p class="wss-card-desc">עיצוב ופיתוח אתר מהיר, נגיש ומותאם לנייד — עם עמוד נחיתה ממיר ואינטגרציית WhatsApp לתיאום תורים.</p>
+          <div class="wss-card-bottom">
+            <span class="wss-card-result"><i class="fa-solid fa-arrow-trend-up"></i> +60% פניות אורגניות</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2: SEO -->
+      <article class="wss-card">
+        <div class="wss-card-img-wrap">
+          <img loading="lazy" decoding="async" data-placeholder="work-showcase-image-3" data-context="SEO analytics dashboard screenshot for an Israeli e-commerce brand — Google Search Console data with Hebrew keyword rankings, organic traffic growth chart with blue upward trend, dark interface with glowing metrics and position tracking table." width="560" height="315" src="/assets/site-work-showcase-image-3.webp" alt="קמפיין SEO לחנות אונליין" class="wss-card-img">
+          <div class="wss-card-overlay"></div>
+          <div class="wss-card-tags">
+            <span class="wss-tag wss-tag--sm">SEO</span>
+            <span class="wss-tag wss-tag--sm">תוכן</span>
+          </div>
+        </div>
+        <div class="wss-card-body">
+          <h3 class="wss-card-title">קידום אורגני לחנות אי-קומרס</h3>
+          <p class="wss-card-desc">אסטרטגיית SEO מלאה — מחקר מילות מפתח, בניית סמכות דומיין ותוכן ממוקד שהעלה את הדירוגים תוך 90 יום.</p>
+          <div class="wss-card-bottom">
+            <span class="wss-card-result"><i class="fa-solid fa-arrow-trend-up"></i> דף 1 על 28 מילות מפתח</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3: WhatsApp Automation -->
+      <article class="wss-card">
+        <div class="wss-card-img-wrap">
+          <img loading="lazy" decoding="async" data-placeholder="work-showcase-image-4" data-context="WhatsApp marketing automation flow diagram for an Israeli business — dark background with glowing green and blue nodes showing lead journey: ad click → landing page → WhatsApp message → automated follow-up → sale. Modern funnel visualization with Hebrew labels." width="560" height="315" src="/assets/site-work-showcase-image-4.webp" alt="אוטומציית WhatsApp למשפך לידים" class="wss-card-img">
+          <div class="wss-card-overlay"></div>
+          <div class="wss-card-tags">
+            <span class="wss-tag wss-tag--sm">אוטומציה</span>
+            <span class="wss-tag wss-tag--sm">WhatsApp</span>
+          </div>
+        </div>
+        <div class="wss-card-body">
+          <h3 class="wss-card-title">משפך לידים עם אוטומציית WhatsApp</h3>
+          <p class="wss-card-desc">בניית מערכת אוטומטית שמקבלת ליד מהמודעה, שולחת הודעת WhatsApp תוך שניות ומנהלת מעקב חכם — בלי מאמץ ידני.</p>
+          <div class="wss-card-bottom">
+            <span class="wss-card-result"><i class="fa-solid fa-arrow-trend-up"></i> 78% שיפור בזמן תגובה</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4: Creative Content -->
+      <article class="wss-card">
+        <div class="wss-card-img-wrap">
+          <img loading="lazy" decoding="async" data-placeholder="work-showcase-image-5" data-context="Creative social media content production for an Israeli food and lifestyle brand — grid of branded Instagram posts with bold Hebrew typography, vibrant product photography, dark navy template with electric-blue and white accents, professional digital advertising creative." width="560" height="315" src="/assets/site-work-showcase-image-5.webp" alt="קריאייטיב ותוכן לרשתות חברתיות" class="wss-card-img">
+          <div class="wss-card-overlay"></div>
+          <div class="wss-card-tags">
+            <span class="wss-tag wss-tag--sm">קריאייטיב</span>
+            <span class="wss-tag wss-tag--sm">סושיאל</span>
+          </div>
+        </div>
+        <div class="wss-card-body">
+          <h3 class="wss-card-title">קריאייטיב ותוכן לרשתות חברתיות</h3>
+          <p class="wss-card-desc">הפקת תוכן ויזואלי ממותג — סרטונים, רילס, גרפיקה ופוסטים שמייצרים מעורבות ומחזקים את הנוכחות הדיגיטלית של המותג.</p>
+          <div class="wss-card-bottom">
+            <span class="wss-card-result"><i class="fa-solid fa-arrow-trend-up"></i> ×4 מעורבות ממוצעת</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <!-- /wss-grid -->
+
+  </div>
+  <!-- /wss-container -->
+
+  <!-- Bottom angular divider -->
+  <div class="wss-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,28 L1440,0 L1440,80 Z" fill="#071428"></path>
+    </svg>
+  </div>
+
+</section>
+
+<section class="work-results-approach-section" data-layout-spec="עבודות-results-approach" dir="rtl">
+
+  <!-- Background decorative elements -->
+  <div class="wra-bg-grid" aria-hidden="true"></div>
+  <div class="wra-glow-orb wra-glow-1" aria-hidden="true"></div>
+  <div class="wra-glow-orb wra-glow-2" aria-hidden="true"></div>
+
+  <!-- Decorative micro-chart SVG -->
+  <svg class="wra-bg-chart" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <polyline points="0,100 40,85 80,90 120,60 160,70 200,40 240,50 280,25 320,35 360,15 400,20" fill="none" stroke="rgba(0,191,255,0.12)" stroke-width="1.5"></polyline>
+    <circle cx="400" cy="20" r="3" fill="rgba(0,191,255,0.3)"></circle>
+    <circle cx="280" cy="25" r="2.5" fill="rgba(0,191,255,0.2)"></circle>
+    <circle cx="200" cy="40" r="2" fill="rgba(0,191,255,0.18)"></circle>
+  </svg>
+
+  <!-- Path diagram SVG -->
+  <svg class="wra-path-diagram" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100,10 C100,10 30,60 30,100 C30,140 100,160 100,200 C100,240 30,260 30,290" fill="none" stroke="rgba(0,191,255,0.08)" stroke-width="1" stroke-dasharray="4,6"></path>
+    <path d="M100,10 C100,10 170,60 170,100 C170,140 100,160 100,200 C100,240 170,260 170,290" fill="none" stroke="rgba(0,191,255,0.06)" stroke-width="1" stroke-dasharray="4,6"></path>
+  </svg>
+
+  <div class="wra-container">
+    <div class="wra-grid">
+
+      <!-- START (right) zone: editorial explanation -->
+      <div class="wra-editorial">
+        <div class="wra-label-badge">הגישה שלנו</div>
+        <h2 class="wra-heading">עבודה טובה נמדדת<br><span class="wra-accent">בתוצאות אמיתיות</span></h2>
+        <p class="wra-lead">מספרים גדולים על מסך לא מספרים את הסיפור האמיתי. חשיפות, לייקים ו"טראפיק" — אלה לא הסיבה שעסקים משקיעים בשיווק דיגיטלי.</p>
+        <p class="wra-body">שיווק דיגיטלי שעובד מוביל לפניות רלוונטיות, בונה אמון אמיתי עם הקהל הנכון, ויוצר תהליך ברור שבו אנשים מגיעים — ורוצים לדבר איתך. זה מה שאנחנו בודקים בכל עבודה שאנחנו מוציאים לעולם.</p>
+
+        <div class="wra-divider-line" aria-hidden="true"></div>
+
+        <div class="wra-image-wrapper">
+          <img loading="lazy" decoding="async" data-placeholder="work-results-approach-image-1" data-context="Abstract digital marketing analytics dashboard visualization for Israeli agency Loca Media. Dark midnight blue background with glowing electric blue data flow lines, funnel diagrams, and conversion metrics. Cinematic, premium, tech-forward aesthetic with neon accents. Suggests leads flowing through campaigns into business growth." width="600" height="400" src="/assets/site-work-results-approach-image-1.webp" alt="גישת לוקה מדיה למדידת תוצאות שיווק דיגיטלי">
+          <div class="wra-image-glow" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- END (left) zone: three framework cards -->
+      <div class="wra-cards-stack">
+
+        <div class="wra-section-label">המסגרת שלנו לעבודה טובה</div>
+
+        <!-- Card 1: Messaging quality -->
+        <article class="wra-card">
+          <div class="wra-card-inner">
+            <div class="wra-card-icon-wrap">
+              <svg data-element-type="icon" data-icon-type="svg" class="wra-card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </div>
+            <div class="wra-card-content">
+              <div class="wra-card-number">01</div>
+              <h3 class="wra-card-title">איכות המסרים</h3>
+              <p class="wra-card-desc">האם העסק מוצג בצורה שמייצרת אמון מיידי? מסר ברור, קופי חד ותוכן שמדבר לקהל הנכון — אלה הבסיס לכל קמפיין שמוביל לפניות.</p>
+              <div class="wra-card-tags">
+                <span class="wra-tag">קופי</span>
+                <span class="wra-tag">מיצוב</span>
+                <span class="wra-tag">אמון</span>
+              </div>
+            </div>
+          </div>
+          <div class="wra-card-glow-bar" aria-hidden="true"></div>
+        </article>
+
+        <!-- Card 2: Conversion flow -->
+        <article class="wra-card">
+          <div class="wra-card-inner">
+            <div class="wra-card-icon-wrap">
+              <svg data-element-type="icon" data-icon-type="svg" class="wra-card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <div class="wra-card-content">
+              <div class="wra-card-number">02</div>
+              <h3 class="wra-card-title">זרימת ההמרה</h3>
+              <p class="wra-card-desc">האם יש מסלול ברור מהמודעה ועד לפנייה? אנחנו בונים משפך שיווקי שמוביל את הגולש צעד אחרי צעד — ממודעה, דרך דף נחיתה, ועד לשיחה או הודעת וואטסאפ.</p>
+              <div class="wra-card-tags">
+                <span class="wra-tag">משפך</span>
+                <span class="wra-tag">דף נחיתה</span>
+                <span class="wra-tag">המרה</span>
+              </div>
+            </div>
+          </div>
+          <div class="wra-card-glow-bar" aria-hidden="true"></div>
+        </article>
+
+        <!-- Card 3: Lead relevance -->
+        <article class="wra-card">
+          <div class="wra-card-inner">
+            <div class="wra-card-icon-wrap">
+              <svg data-element-type="icon" data-icon-type="svg" class="wra-card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.8"></circle>
+                <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                <path d="M11 8v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <div class="wra-card-content">
+              <div class="wra-card-number">03</div>
+              <h3 class="wra-card-title">רלוונטיות הפניות</h3>
+              <p class="wra-card-desc">לא כל פנייה שווה. אנחנו מכוונים לאנשים שכבר מחפשים את מה שהעסק מציע — כאלה שיש להם כוונת רכישה אמיתית ולא רק סקרנות.</p>
+              <div class="wra-card-tags">
+                <span class="wra-tag">טרגוט</span>
+                <span class="wra-tag">כוונת קנייה</span>
+                <span class="wra-tag">לידים</span>
+              </div>
+            </div>
+          </div>
+          <div class="wra-card-glow-bar" aria-hidden="true"></div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom route-line ribbon divider -->
+  <div class="wra-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,70 L0,30 Q150,18 300,24 T600,16 Q900,10 1050,20 T1200,28 L1200,70 Z" fill="#040D1A"></path>
+      <path d="M0,70 L0,42 Q200,36 400,40 T800,34 Q1000,30 1200,38 L1200,70 Z" fill="#040D1A"></path>
+      <!-- Route line motif -->
+      <path d="M0,38 Q300,20 600,28 T1200,22" fill="#040D1A" stroke="rgba(0,191,255,0.18)" stroke-width="1" stroke-dasharray="6,10"></path>
+      <circle cx="600" cy="28" r="2.5" fill="rgba(0,191,255,0.35)"></circle>
+      <circle cx="300" cy="22" r="1.8" fill="rgba(0,191,255,0.25)"></circle>
+      <circle cx="900" cy="24" r="1.8" fill="rgba(0,191,255,0.25)"></circle>
+    </svg>
+  </div>
+
+</section>
+
+<section class="work-proof-points-section" data-layout-spec="עבודות-proof-points" dir="rtl">
+  <!-- Decorative background motifs -->
+  <div class="wpp-bg-dots" aria-hidden="true"></div>
+  <div class="wpp-glow-burst" aria-hidden="true"></div>
+
+  <div class="wpp-container">
+    <!-- Section header -->
+    <div class="wpp-header">
+      <span class="wpp-label">למה לוקה מדיה</span>
+      <h2 class="wpp-title">מה שמבדיל אותנו <span class="wpp-accent">בשטח</span></h2>
+      <p class="wpp-subtitle">לא סתם קמפיינים — שיווק דיגיטלי שמחובר לאסטרטגיה, לשוק הישראלי, ולתוצאות שאפשר למדוד.</p>
+    </div>
+
+    <!-- Six proof-point cards -->
+    <div class="wpp-grid">
+
+      <!-- Card 1 -->
+      <article class="wpp-card">
+        <div class="wpp-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <div class="wpp-card-body">
+          <h3 class="wpp-card-title">יישור מסר–מדיה</h3>
+          <p class="wpp-card-text">הקמפיין, הדף, והמסר — כולם מדברים אותו שפה. כך כל קליק מגיע לעמוד שמשכנע ומוביל לפנייה.</p>
+        </div>
+        <div class="wpp-card-glow" aria-hidden="true"></div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="wpp-card">
+        <div class="wpp-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <path d="M3 9h18"></path>
+            <path d="M9 21V9"></path>
+          </svg>
+        </div>
+        <div class="wpp-card-body">
+          <h3 class="wpp-card-title">ארכיטקטורת דף ממירה</h3>
+          <p class="wpp-card-text">דפי נחיתה שבנויים סביב כוונת הגולש — מבנה, היררכיה, וקריאה לפעולה שמובילה לפניות אמיתיות.</p>
+        </div>
+        <div class="wpp-card-glow" aria-hidden="true"></div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="wpp-card">
+        <div class="wpp-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .91h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"></path>
+          </svg>
+        </div>
+        <div class="wpp-card-body">
+          <h3 class="wpp-card-title">לוגיקת טיפול בלידים</h3>
+          <p class="wpp-card-text">כל פנייה מקבלת מענה מהיר — עם אוטומציות, וואטסאפ, ו-CRM שמוודאים שאף ליד לא נופל בין הכיסאות.</p>
+        </div>
+        <div class="wpp-card-glow" aria-hidden="true"></div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="wpp-card">
+        <div class="wpp-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M2 12h20"></path>
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"></path>
+          </svg>
+        </div>
+        <div class="wpp-card-body">
+          <h3 class="wpp-card-title">שליטה בפלטפורמות</h3>
+          <p class="wpp-card-text">מטא, גוגל, טיקטוק, לינקדאין — אנחנו עובדים על הפלטפורמה הנכונה לקהל שלכם, לא על כולן בבת אחת.</p>
+        </div>
+        <div class="wpp-card-glow" aria-hidden="true"></div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="wpp-card">
+        <div class="wpp-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 010 7.75"></path>
+          </svg>
+        </div>
+        <div class="wpp-card-body">
+          <h3 class="wpp-card-title">הבנת השוק הישראלי</h3>
+          <p class="wpp-card-text">אנחנו יודעים איך הצרכן הישראלי חושב, מה משכנע אותו, ואיך לדבר אליו בשפה שמוביל לפעולה — בלי לתרגם מחו"ל.</p>
+        </div>
+        <div class="wpp-card-glow" aria-hidden="true"></div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="wpp-card">
+        <div class="wpp-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+        </div>
+        <div class="wpp-card-body">
+          <h3 class="wpp-card-title">אופטימיזציה שוטפת</h3>
+          <p class="wpp-card-text">לא מגדירים ושוכחים — מנטרים, בודקים, ומשפרים כל הזמן. הנתונים מכתיבים לאן הולכים, לא ניחושים.</p>
+        </div>
+        <div class="wpp-card-glow" aria-hidden="true"></div>
+      </article>
+
+    </div><!-- /wpp-grid -->
+
+    <!-- Bottom accent line -->
+    <div class="wpp-bottom-accent" aria-hidden="true"></div>
+  </div><!-- /wpp-container -->
+
+  <!-- Bottom gradient fade divider -->
+  <div class="wpp-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="wppDivGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="transparent"></stop>
+          <stop offset="100%" stop-color="#020713"></stop>
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="90" fill="url(#wppDivGrad)"></rect>
+    </svg>
+  </div>
+</section>
+
+<section class="work-cta-section" data-layout-spec="עבודות-cta" dir="rtl">
+  <!-- Decorative background elements -->
+  <div class="work-cta-bg-glow" aria-hidden="true"></div>
+  <div class="work-cta-dots" aria-hidden="true"></div>
+
+  <div class="work-cta-container">
+    <div class="work-cta-inner">
+
+      <!-- Badge -->
+      <div class="work-cta-badge">
+        <span class="work-cta-badge-dot"></span>
+        <span>בואו נדבר על העסק שלכם</span>
+      </div>
+
+      <!-- Headline -->
+      <h2 class="work-cta-heading">
+        גם העסק שלכם יכול
+        <span class="work-cta-accent">להביא יותר פניות</span>
+      </h2>
+
+      <!-- Subtext -->
+      <p class="work-cta-sub">
+        ראיתם כאן דוגמאות מהעבודה שלנו — עכשיו בואו נדבר על מה שאפשר לעשות <strong>בשבילכם</strong>.
+        אין פה הבטחות ריקות, רק שיחה ישירה על השיווק הדיגיטלי שלכם ואיך אפשר לשפר אותו.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="work-cta-buttons">
+        <a href="https://wa.me/972506521525" target="_blank" rel="noopener noreferrer" class="btn-primary work-cta-btn-primary">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+          </svg>
+          שלחו הודעה בוואטסאפ
+        </a>
+        <a href="/contact" class="btn-secondary work-cta-btn-secondary">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          דברו איתנו על השיווק שלכם
+        </a>
+      </div>
+
+      <!-- Trust line -->
+      <p class="work-cta-trust">
+        <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:inline-block; vertical-align:middle; margin-inline-end:6px; color: var(--accent);">
+          <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+        </svg>
+        ללא התחייבות · שיחה קצרה · תשובה תוך 24 שעות
+      </p>
+
+    </div>
+  </div>
+</section>
+  </main>
+  
+  <footer class="site-footer" dir="rtl" aria-label="כותרת תחתונה של האתר">
+  <div class="footer-glow-top"></div>
+  <div class="footer-container">
+
+    <!-- TOP GRID -->
+    <div class="footer-grid">
+
+      <!-- Column 1: Company Info -->
+      <div class="footer-col footer-col--brand">
+        <a href="/" class="footer-logo-link" aria-label="לוקה מדיה - עמוד הבית">
+          <img src="/assets/loca-media-digital-marketing-advertising-logo.webp" alt="Loca Media / לוקה מדיה" class="logo">
+        </a>
+        <p class="footer-tagline">אנחנו מניעים צמיחה דיגיטלית אמיתית — קמפיינים חכמים, לידים איכותיים, ותוצאות מדידות שמשנות עסקים.</p>
+        <div class="footer-social">
+          
+          
+          
+        </div>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="footer-col">
+        <h3 class="footer-heading">ניווט מהיר</h3>
+        <div class="footer-heading-line"></div>
+        <ul class="footer-links" aria-label="קישורי ניווט מהיר">
+          <li><a href="/">בית</a></li>
+          <li><a href="/services">שירותים</a></li>
+          <li><a href="/work">עבודות</a></li>
+          <li><a href="/about">אודות</a></li>
+          <li><a href="/contact">צור קשר</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact Info -->
+      <div class="footer-col">
+        <h3 class="footer-heading">יצירת קשר</h3>
+        <div class="footer-heading-line"></div>
+        <ul class="footer-contact" aria-label="פרטי יצירת קשר">
+          <li>
+            <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+            <span class="contact-text"><a href="mailto:[business_email]">[business_email]</a></span>
+          </li>
+          <li>
+            <span class="contact-icon"><i class="fas fa-phone"></i></span>
+            <span class="contact-text"><a href="tel:[business_phone]">[business_phone]</a></span>
+          </li>
+          <li><a href="/"><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+            <span class="contact-text">[business_address]</span></a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Hours & Badge -->
+      <div class="footer-col">
+        <h3 class="footer-heading">שעות פעילות</h3>
+        <div class="footer-heading-line"></div>
+        <ul class="footer-hours" aria-label="שעות פעילות">
+          <li><a href="/"><span class="hours-day">ראשון – חמישי</span><span class="hours-time">09:00 – 18:00</span></a></li>
+          <li><a href="/"><span class="hours-day">שישי</span><span class="hours-time">09:00 – 13:00</span></a></li>
+          <li><a href="/"><span class="hours-day">שבת</span><span class="hours-time closed">סגור</span></a></li>
+        </ul>
+        <div class="footer-badge" aria-label="תמיכה זמינה">
+          <i class="fas fa-headset"></i>
+          <span>תמיכה 24/7 זמינה</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="footer-divider"></div>
+
+    <!-- BOTTOM BAR -->
+    <div class="footer-bottom">
+      <p class="footer-copyright">© 2026 Loca Media / לוקה מדיה. כל הזכויות שמורות.</p>
+      <div class="footer-legal">
+        <a href="/privacy">מדיניות פרטיות</a>
+        <span class="legal-sep" aria-hidden="true">·</span>
+        <a href="/terms">תנאי שימוש</a>
+        <span class="legal-sep" aria-hidden="true">·</span>
+        <a href="/accessibility">נגישות</a>
+        <span class="legal-sep" aria-hidden="true">·</span>
+        <a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer-data-route" aria-hidden="true">
+    <div class="data-dot"></div>
+    <div class="data-dot"></div>
+    <div class="data-dot"></div>
+  </div>
+</footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+
+    <script id="zappy-navbar-scroll-effect">
+    (function(){
+      var nb=document.querySelector('nav.navbar,.navbar:not(.zappy-catalog-menu)');
+      var cm=document.querySelector('.zappy-catalog-menu,#zappy-catalog-menu');
+      if(!nb)return;
+      var fb='rgba(234,242,255,0.85)';
+      var th=60;
+      var rs=getComputedStyle(document.documentElement);
+      var td=rs.getPropertyValue('--text-dark').trim()||'#1a1a1a';
+      var tl=rs.getPropertyValue('--text-light').trim()||'#ffffff';
+      var st=true?td:tl;
+      nb.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease,box-shadow 0.3s ease';
+      if(cm)cm.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease';
+      var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link';
+      var skipCls=['cart-link','login-link','nav-search-toggle','search-toggle'];
+      function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}}
+      function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}}
+      function applyScrolled(){
+        nb.classList.add('scrolled');
+        if(window.innerWidth>768){
+          nb.style.setProperty('--frosted-text',st);
+          nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('background-color',fb,'important');
+          nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+        }
+        if(cm){cm.classList.add('scrolled');if(window.innerWidth>768){cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}
+      }
+      function onS(){
+        if(window._zappyNavNoDarkHero) return;
+        if(window.innerWidth<=768){nb.classList.remove('scrolled');cTC(nb);if(cm){cm.classList.remove('scrolled');cTC(cm);}return;}
+        var y=window.scrollY||window.pageYOffset;
+        if(y>th){
+          nb.classList.add('scrolled');nb.style.setProperty('background-color',fb,'important');nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('--frosted-text',st);nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+          if(cm){cm.classList.add('scrolled');cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}
+        }else{
+          nb.classList.remove('scrolled');nb.style.setProperty('background-color','transparent','important');nb.style.removeProperty('background-image');
+          nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='none';nb.style.webkitBackdropFilter='none';nb.style.boxShadow='none';
+          cTC(nb);
+          if(cm){cm.classList.remove('scrolled');cm.style.setProperty('background','transparent','important');cm.style.setProperty('backdrop-filter','none','important');cm.style.setProperty('-webkit-backdrop-filter','none','important');cTC(cm);}
+        }
+      }
+      function sLum(rv,gv,bv){rv/=255;gv/=255;bv/=255;rv=rv<=0.03928?rv/12.92:Math.pow((rv+0.055)/1.055,2.4);gv=gv<=0.03928?gv/12.92:Math.pow((gv+0.055)/1.055,2.4);bv=bv<=0.03928?bv/12.92:Math.pow((bv+0.055)/1.055,2.4);return 0.2126*rv+0.7152*gv+0.0722*bv;}
+      window.addEventListener('scroll',onS,{passive:true});
+      window.addEventListener('resize',onS,{passive:true});
+      onS();
+      var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main>section:first-child');
+      var hasDH=false;
+      if(heroEl){var hCs=getComputedStyle(heroEl);var hBI=hCs.backgroundImage;if(hBI&&hBI!=='none'){if(hBI.indexOf('url(')!==-1){var hM2=hCs.backgroundColor.match(/\d+/g);if(hM2&&hM2.length>=3){hasDH=sLum(parseInt(hM2[0]),parseInt(hM2[1]),parseInt(hM2[2]))<0.4;}else{hasDH=true;}}else if(hBI.indexOf('gradient')!==-1){var cM=hBI.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(cM&&cM.length>0){var tLm=0;for(var ci=0;ci<cM.length;ci++){var pts=cM[ci].match(/\d+/g);tLm+=sLum(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));}hasDH=(tLm/cM.length)<0.4;}else{hasDH=true;}}else{hasDH=true;}}else{var hM=hCs.backgroundColor.match(/\d+/g);if(hM&&hM.length>=3){hasDH=sLum(parseInt(hM[0]),parseInt(hM[1]),parseInt(hM[2]))<0.4;}}}
+      if(!hasDH){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);applyScrolled();window._zappyNavNoDarkHero=true;}
+    })();
+    </script>
+</body>
+</html>
