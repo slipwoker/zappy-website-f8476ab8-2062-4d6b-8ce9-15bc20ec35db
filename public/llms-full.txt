@@ -2,13 +2,13 @@
 
 Loca Media is a professional Israeli digital marketing and advertising agency led by founder Lior Sadikov. The brand projects a premium, tech-forward identity with a dark, neon-blue aesthetic evoking dashboards, data, and digital growth. The agency positions itself as a serious full-service partner for Israeli business owners — not a freelancer — offering paid ads, websites, SEO, creative content, videos, and automations. The tone is direct, warm, Israeli, and sales-driven without being arrogant or making empty promises. The visual language combines marketing funnels, lead flows, WhatsApp integrations, and growth metrics to communicate measurable business impact.
 
-Source: https://loca-media-f8476ab8.zappy5.app
+Source: https://example.com
 
 ---
 
 ## מקדמים עסקים ישראליים לתוצאות אמיתיות — Loca Media / לוקה מדיה
 
-URL: https://loca-media-f8476ab8.zappy5.app
+URL: https://example.com
 Description: סוכנות דיגיטל מקצועית שמביאה לידים, מכירות וצמיחה מדידה. פרסום ממומן, בניית אתרים, SEO וקריאייטיב — הכל במקום אחד. בואו נבנה ביחד.
 
 מקדמים עסקים ישראליים לתוצאות אמיתיות — Loca Media / לוקה מדיה
@@ -905,7 +905,7 @@ Google Business
 
 ## כל הכלים שהעסק שלך צריך כדי לנצח — Loca Media / לוקה מדיה
 
-URL: https://loca-media-f8476ab8.zappy5.app/services
+URL: https://example.com/services
 Description: מפרסום ממומן בגוגל ומטא ועד עיצוב ובניית אתרים, SEO, סרטונים ואוטומציות — לוקה מדיה מציעה חבילת שירותים דיגיטלית מלאה לעסקים שרוצים לגדול.
 
 כל הכלים שהעסק שלך צריך כדי לנצח — Loca Media / לוקה מדיה
@@ -1887,7 +1887,7 @@ Full Service
 
 ## תוצאות שמדברות בעד עצמן — ראו את הפרויקטים — Loca Media / לוקה מדיה
 
-URL: https://loca-media-f8476ab8.zappy5.app/work
+URL: https://example.com/work
 Description: תיק עבודות אמיתי עם קמפיינים, אתרים ותוצאות שהושגו עבור עסקים ישראליים. כל פרויקט מוכיח שפרסום דיגיטלי נכון שווה השקעה — בואו להתרשם בעצמכם.
 
 תוצאות שמדברות בעד עצמן — ראו את הפרויקטים — Loca Media / לוקה מדיה
@@ -2522,7 +2522,7 @@ WhatsApp
 
 ## הסיפור מאחורי הסוכנות שמשנה חוקים — Loca Media / לוקה מדיה
 
-URL: https://loca-media-f8476ab8.zappy5.app/about
+URL: https://example.com/about
 Description: ליאור סדיקוב ולוקה מדיה — לא פרילנסר, לא עוד סוכנות. שותף דיגיטלי אמיתי שמבין עסקים ישראליים, חושב בתוצאות ועובד עם מחויבות מלאה להצלחה שלכם.
 
 הסיפור מאחורי הסוכנות שמשנה חוקים — Loca Media / לוקה מדיה
@@ -3244,7 +3244,7 @@ LinkedIn
 
 ## מוכנים להתחיל לגדול? דברו איתנו עכשיו — Loca Media / לוקה מדיה
 
-URL: https://loca-media-f8476ab8.zappy5.app/contact
+URL: https://example.com/contact
 Description: השאירו פרטים ונחזור אליכם מהר. בין אם אתם צריכים עיצוב ובניית אתרים, קמפיין ממומן או אסטרטגיה דיגיטלית — לוקה מדיה כאן ומוכנה לעבוד בשבילכם.
 
 מוכנים להתחיל לגדול? דברו איתנו עכשיו — Loca Media / לוקה מדיה
@@ -3714,7 +3714,7 @@ Description: השאירו פרטים ונחזור אליכם מהר. בין אם
 
 ## מדיניות פרטיות
 
-URL: https://loca-media-f8476ab8.zappy5.app/privacy
+URL: https://example.com/privacy
 Description: מדיניות הפרטיות שלנו - כיצד אנו אוספים, משתמשים ומגנים על המידע שלכם
 
 מדיניות פרטיות
@@ -3989,7 +3989,7 @@ Loca Media / לוקה מדיה ("החברה", "אנו", "שלנו") מחויבת
 
 ## הצהרת נגישות
 
-URL: https://loca-media-f8476ab8.zappy5.app/accessibility
+URL: https://example.com/accessibility
 Description: הצהרת הנגישות שלנו - מחויבותנו לנגישות דיגיטלית
 
 הצהרת נגישות
@@ -4273,7 +4273,7 @@ Loca Media / לוקה מדיה מחויבת להנגיש את השירותים �
 
 ## תנאי שימוש
 
-URL: https://loca-media-f8476ab8.zappy5.app/terms
+URL: https://example.com/terms
 Description: תנאי השימוש באתר - הזכויות והחובות של המשתמשים
 
 תנאי שימוש
